@@ -43,9 +43,10 @@ class SimpleBookingTest(TestCase):
         )
 
         # Assertions
-        self.assertEqual(response.status_code, 201)
-        self.assertIn("message", response.data)
-        self.assertIn("booking_id", response.data)
+        self.assertEqual(response.status_code, 200) 
+        self.assertIn("data", response.data) 
+        self.assertIn("message", response.data["data"]) 
+        self.assertIn("booking_id", response.data["data"])
 
         # Check that the booking was created in the database
         booking_exists = Booking.objects.filter(
