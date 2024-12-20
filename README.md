@@ -168,10 +168,10 @@ To create initial data for your application, you can use the Django shell.
 
 ## Running Tests
 
-    To run the tests, use the following command:
-        ```sh
-        python manage.py test
-        ```
+To run the tests, use the following command:
+    ```sh
+    python manage.py test
+    ```
 
 ## Postman Examples
 
