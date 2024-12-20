@@ -15,7 +15,7 @@ This project is a Django-based API for booking hotel rooms. It provides endpoint
 - **Django REST Framework**: For creating RESTful API endpoints.
 - **JWT Authentication**: For secure user authentication.
 - **PostgreSQL**: Database used for storing data (you can modify it in the `.env` file).
-- **Python 3.x**: Programming language used.
+- **Python**: Programming language used.
 
 ## Installation
 
@@ -65,7 +65,44 @@ Follow these steps to set up the project locally:
 
 ## Usage
 
-### Authentication
+### Django Shell Usage For Database Data Injection
+
+To create initial data for your application, you can use the Django shell.
+
+1. **Open Django Shell**  
+   Run the following command in your terminal:
+   ```sh
+   python manage.py shell
+   ```
+2. **Import the Necessary Models**
+   Use these imports to access your models and the Django User model: 
+   ```python
+   from core.models import Hotel, Room
+   from django.contrib.auth.models import User
+   ```
+3. **Create a Hotel Object**
+   Replace "Grand Plaza Hotel" and "New York City" with your desired hotel name and location: 
+   ```python
+   hotel = Hotel.objects.create(name="Grand Plaza Hotel", location="New York City")
+   ```
+4. **Create Room Objects**
+   Use the Room model to create rooms associated with the hotel. Replace room numbers as needed: 
+   ```python
+   room1 = Room.objects.create(hotel=hotel, room_number="101")
+   room2 = Room.objects.create(hotel=hotel, room_number="102")
+   ```
+5. **Create a User**
+   Replace "testuser" and "password123" with the username and password you want to use: 
+   ```python
+   user = User.objects.create_user(username="testuser", password="password123")
+   ```
+6. **Print the IDs**
+   Print the IDs of the created objects to confirm successful creation: 
+   ```python
+   print(f"Hotel ID: {hotel.id}, Room1 ID: {room1.id}, Room2 ID: {room2.id}, User ID: {user.id}")
+   ```
+
+### Authentication Examples
 
 - **Obtain a JWT token**:
     ```sh
@@ -75,8 +112,8 @@ Follow these steps to set up the project locally:
     **Request Body**:
     ```json
     {
-      "username": "your_username",
-      "password": "your_password"
+      "username": "alireza",
+      "password": "123"
     }
     ```
 
@@ -100,7 +137,7 @@ Follow these steps to set up the project locally:
     }
     ```
 
-### Booking
+### Booking Examples
 
 - **Create a booking**:
     ```sh
@@ -110,23 +147,21 @@ Follow these steps to set up the project locally:
     **Request Body**:
     ```json
     {
-      "room": "room_id",
-      "check_in_date": "YYYY-MM-DD",
-      "check_out_date": "YYYY-MM-DD"
+        "room": 1,
+        "start_at": "2026-06-01T12:00:00",
+        "end_at": "2026-06-01T14:00:00"
     }
     ```
 
     **Response**:
     ```json
     {
-        {
-        "detail": "detail",
-        "code": "code",
+        "detail": "Success",
+        "code": "success",
         "error": null,
         "data": {
-            "message": "message",
-            "booking_id": "id number"
-            }
+            "message": "Booking successful!",
+            "booking_id": 1
         }
     }
     ```
@@ -169,8 +204,6 @@ Below are examples of using Postman to interact with the API:
 ![Create Booking Response](assets/screenshots/create-booking-response.png)
 
 ---
-
-To test the API using Postman, [download the Postman collection here](path/to/your-postman-collection.json) and import it into Postman. Once imported, you can run all the requests and view the responses.
 
 ## Contributing
 
